@@ -18,7 +18,7 @@ If I were to cache this program, I would use a key-value store -- probably redis
 
 To generate the keys, I would use the array of parsed integers -- intentionally discarding invalid integers -- and order them in ascending order. This is to ensure that the key is generated from the same data regardless of the order of the input.
 
-I would then take the ordered list of integers, convert each to a string, and concatenate them together with a non-numeric separator, such as comma. Then, I would pass the concatenated string through a 1-way deterministic hashing function -- sha256, for example. This hash would be my key (filename if i was storing on disk). The purpose of this is to decrease the size of the key from potentially massive to a uniform size. This is safe as long as the hashing function is deterministic.
+I would then take the ordered list of integers, convert each to a string, and concatenate them together with a non-numeric separator, such as comma. Then, I would pass the concatenated string through a 1-way deterministic hashing function -- sha256, for example. This hash would be my key (filename if i was storing on disk). The purpose of this is to decrease the size of the key from potentially massive to a uniform size. This is safe as long as the hashing function is deterministic and guaranteed unique.
 
 Then, to generate the value, i would pass the calculated output through a serialization function -- json by default, although a language-oriented serializer might make sense depending on the implementation and performance requirements (such as php serialize) 
 
